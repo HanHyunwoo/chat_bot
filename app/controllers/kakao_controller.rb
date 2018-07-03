@@ -57,4 +57,22 @@ class KakaoController < ApplicationController
     
     render json: @result
   end
+  
+  def friend_add
+    User.create(user_key: params[:user_key], chat_room: 0)
+    render nothing: true
+  end
+  
+  def friend_delete
+    User.find_by(user_key: params[:user_key]).destroy
+    render nothing: true
+  end
+  
+  def chat_room
+    user = User.find_by(user_key: params[:user_key])
+    user.plus
+    user.save
+    render nothing: true
+  end
+  
 end
