@@ -1,3 +1,5 @@
+require 'parse'
+
 class KakaoController < ApplicationController
   def keyboard
     @keyboard = {
@@ -17,11 +19,7 @@ class KakaoController < ApplicationController
     elsif @user_msg == "로또"
       @text = (1..45).to_a.sample(6).sort.to_s
     elsif @user_msg == "고양이"
-      @url = "http://thecatapi.com/api/images/get?format=xml&type=jpg"
-      @cat_xml = RestClient.get(@url)
-      @cat_doc = Nokogiri::XML(@cat_xml)
-      @cat_url = @cat_doc.xpath("//url").text
-      @text = @cat_url
+      @cat_url = Parse::Animal.cat
     end
     
     
